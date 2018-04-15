@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">PopularMoviesStage2</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="popular_movies">Popular</string>
+    <string name="top_rated_movies">Top Rated</string>
+    <string name="favorite_movies">Favorite</string>
+
+    <string name="popular">popular</string>
+    <string name="topRated">top_rated</string>
+
+    <!-- Detail Screen -->
+    <string name="user_rating">User Rating: </string>
+    <string name="release_date">Release Date: </string>
+    <string name="plot_synopsis">Plot Synopsis: </string>
+    <string name="head">Popular Movies Stage 2</string>
+    <string name="trailer">Trailers:</string>
+    <string name="reviews">Reviews:</string>
+    <string name="noreviews">The movie doesn\'t have any reviews</string>
+    <string name="novideos">The movie doesn\'t have any videos</string>
+</resources>

@@ -1,0 +1,16 @@
+<android.support.v4.widget.NestedScrollView
+    android:id="@+id/popularMoviesFragment"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:tag="@string/popular_movies"
+    android:padding="4dp"
+    tools:context="com.project.udacity.popularmoviesstage2.ui.PopularMoviesFragment">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/movies_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</android.support.v4.widget.NestedScrollView>

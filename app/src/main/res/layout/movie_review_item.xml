@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/author"
+        android:textColor="@color/imageBackground"
+        android:fontFamily="monospace"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/reviews"
+    />
+    <TextView
+        android:id="@+id/comment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="italic"
+        android:paddingLeft="16dp"
+        android:textSize="17sp"
+        android:text="@string/appbar_scrolling_view_behavior"
+        android:layout_below="@id/author"
+    />
+</RelativeLayout>
