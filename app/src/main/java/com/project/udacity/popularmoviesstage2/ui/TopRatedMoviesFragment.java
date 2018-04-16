@@ -44,8 +44,8 @@ public class TopRatedMoviesFragment extends Fragment
     RecyclerView recyclerView;
     static Context fContext;
     GridLayoutManager gridLayoutManager;
-    private static final String RECYCLERVIEW_STATE = "recyclerview-state-1";
-    private static final String RECYCLERVIEW_STATE_ADAPTER = "recyclerview-state-adapter";
+    private static final String RECYCLERVIEW_STATE = "recyclerview-state-top-rated";
+    private static final String RECYCLERVIEW_STATE_ADAPTER = "recyclerview-state-adapter-top-rated";
     Parcelable savedRecyclerLayoutState;
     static OkHttpClient httpClient;
     static io.reactivex.Observable<MovieResponse> call;
@@ -55,6 +55,7 @@ public class TopRatedMoviesFragment extends Fragment
     public static TopRatedMoviesFragment newInstance()
     {
         Bundle args = new Bundle();
+        args.getInt("position");
         TopRatedMoviesFragment fragment = new TopRatedMoviesFragment();
         fragment.setArguments(args);
         return fragment;
@@ -110,7 +111,7 @@ public class TopRatedMoviesFragment extends Fragment
                         }
                     }
                 }
-            }, 200);
+            }, 900);
         }
     }
     public  void parseJson(String movieType)
@@ -163,6 +164,6 @@ public class TopRatedMoviesFragment extends Fragment
     @Override
     public void onResume() {
         super.onResume();
-        parseJson(getString(R.string.topRated));
+        //parseJson(getString(R.string.topRated));
     }
 }

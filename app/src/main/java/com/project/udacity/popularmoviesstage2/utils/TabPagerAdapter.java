@@ -1,9 +1,12 @@
 package com.project.udacity.popularmoviesstage2.utils;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.PagerAdapter;
+import android.util.Log;
 import android.view.ViewGroup;
 
 import com.project.udacity.popularmoviesstage2.ui.FavoriteMoviesFragment;
@@ -17,41 +20,49 @@ import java.util.Map;
 
 public class TabPagerAdapter extends FragmentStatePagerAdapter
 {
-    private final List<Fragment> mFragmentList = new ArrayList<>();
-    private final List<String> mFragmentTitleList = new ArrayList<>();
-    private static int NUM_ITEMS = 3;
-    private Map<Integer, String> mFragmentTags;
-    private FragmentManager mFragmentManager;
+    private  List<Fragment> mFragmentList = new ArrayList<>();
+    private  List<String> mFragmentTitleList = new ArrayList<>();
 
     public TabPagerAdapter(FragmentManager manager)
     {
         super(manager);
-        mFragmentManager = manager;
-        mFragmentTags = new HashMap<Integer, String>();
     }
 
     @Override
     public Fragment getItem(int position)
     {
-        switch (position) {
-            case 0:
-                PopularMoviesFragment popularMoviesFragment = PopularMoviesFragment.newInstance();
-                return popularMoviesFragment;
-            case 1:
-                TopRatedMoviesFragment topRatedMoviesFragment = TopRatedMoviesFragment.newInstance();
-                return topRatedMoviesFragment;
-            case 2:
-                FavoriteMoviesFragment favoriteMoviesFragment = FavoriteMoviesFragment.newInstance();
-                return favoriteMoviesFragment;
-            default:
-                return null;
+        Bundle bundle = new Bundle();
+        bundle.putInt("position",position);
+        switch (position)
+        {
+            case 0: return PopularMoviesFragment.newInstance();
+            case 1: return TopRatedMoviesFragment.newInstance();
+            case 2: return FavoriteMoviesFragment.newInstance();
+            default: return null;
         }
-        //return mFragmentList.get(position);
+    }
+
+    @Override
+    public int getItemPosition(Object object) {
+        int index = 0;
+        if(PopularMoviesFragment.newInstance() == object){
+            index = 0;
+        }else if(TopRatedMoviesFragment.newInstance() == object){
+            index = 1;
+        }else if(FavoriteMoviesFragment.newInstance() == object){
+            index = 2;
+        }else{
+            index = -1;
+        }
+        if (index == -1)
+            return POSITION_NONE;
+        else
+            return index;
     }
 
     @Override
     public int getCount() {
-        return NUM_ITEMS;
+        return 3;
     }
 
     public void addFragment(Fragment fragment, String title) {
@@ -60,28 +71,7 @@ public class TabPagerAdapter extends FragmentStatePagerAdapter
     }
 
     @Override
-    public Object instantiateItem(ViewGroup container, int position) {
-        Object object = super.instantiateItem(container, position);
-        if (object instanceof Fragment) {
-            Fragment fragment = (Fragment) object;
-            String tag = fragment.getTag();
-            mFragmentTags.put(position, tag);
-        }
-        return object;
-    }
-
-    public Fragment getFragment(int position) {
-        Fragment fragment = null;
-        String tag = mFragmentTags.get(position);
-        if (tag != null) {
-            fragment = mFragmentManager.findFragmentByTag(tag);
-        }
-        return fragment;
-    }
-
-    @Override
-    public CharSequence getPageTitle(int position)
-    {
+    public CharSequence getPageTitle(int position) {
         switch (position) {
 
             case 0:
@@ -93,5 +83,18 @@ public class TabPagerAdapter extends FragmentStatePagerAdapter
         }
         return "" + (position);
     }
+
+   /* @Override
+    public Object instantiateItem(ViewGroup container, int position) {
+        Object obj = super.instantiateItem(container, position);
+        Fragment fragment = mFragmentList.get(position);
+
+        if((obj!=null && fragment!=null) && !(obj.getClass().getSimpleName().equals(fragment.getClass().getSimpleName()))){
+            destroyItem(container, position, obj);
+            return super.instantiateItem(container, position);
+        }else{
+            return obj;
+        }
+    } */
 }
 

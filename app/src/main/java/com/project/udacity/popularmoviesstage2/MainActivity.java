@@ -42,28 +42,55 @@ public class MainActivity extends AppCompatActivity
     void fillViewPager()
     {
         final TabPagerAdapter adapter = new TabPagerAdapter(getSupportFragmentManager());
-        adapter.notifyDataSetChanged();
-       // viewPager.setOffscreenPageLimit(3);
+       /* adapter.addFragment(PopularMoviesFragment.newInstance(), getString(R.string.popular_movies));
+        adapter.addFragment(TopRatedMoviesFragment.newInstance(), getString(R.string.top_rated_movies));
+        adapter.addFragment(FavoriteMoviesFragment.newInstance(), getString(R.string.favorite_movies)); */
+
+        viewPager.setOffscreenPageLimit(3);
         viewPager.setAdapter(adapter);
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        adapter.notifyDataSetChanged();
+      /* viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
             }
             @Override
             public void onPageSelected(int position) {
-                Fragment fragment = adapter.getFragment(position);
-                if (fragment != null) {
-                    fragment.onResume();
+                Fragment fragment = adapter.getItem(position);
+                if (fragment != null)
+                {
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("position",position);
+                    getSupportFragmentManager().beginTransaction().show(fragment).commit();
+                   //fragment.onResume();
                 }
             }
             @Override
             public void onPageScrollStateChanged(int state) {
 
             }
-        });
+        }); */
         tabLayout.setupWithViewPager(viewPager);
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                mCurrentItem = tab.getPosition();
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+                mCurrentItem = tab.getPosition();
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+        });
     }
+
 
     @Override
     protected void onResume() {

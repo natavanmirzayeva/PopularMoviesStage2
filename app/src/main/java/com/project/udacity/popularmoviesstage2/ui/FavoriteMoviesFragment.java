@@ -39,6 +39,9 @@ public class FavoriteMoviesFragment extends Fragment
     public static FavoriteMoviesFragment newInstance()
     {
         FavoriteMoviesFragment fragment = new FavoriteMoviesFragment();
+        Bundle args = new Bundle();
+        args.getInt("position");
+        fragment.setArguments(args);
         return fragment;
     }
 

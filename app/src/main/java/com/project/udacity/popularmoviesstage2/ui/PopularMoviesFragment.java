@@ -47,6 +47,7 @@ public class PopularMoviesFragment extends Fragment
     public static PopularMoviesFragment newInstance()
     {
         Bundle args = new Bundle();
+        args.getInt("position");
         PopularMoviesFragment fragment = new PopularMoviesFragment();
         fragment.setArguments(args);
         return fragment;
@@ -162,7 +163,7 @@ public class PopularMoviesFragment extends Fragment
     public void onResume()
     {
         super.onResume();
-        parseJson(getString(R.string.popular));
+       // parseJson(getString(R.string.popular));
     }
 
 }

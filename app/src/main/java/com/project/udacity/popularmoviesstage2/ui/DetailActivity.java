@@ -372,4 +372,9 @@ public class DetailActivity extends AppCompatActivity {
     {
         return word.replaceAll("^\"|\"$" ,"");
     }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
 }
