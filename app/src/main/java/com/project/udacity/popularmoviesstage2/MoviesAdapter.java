@@ -23,7 +23,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
         void onItemClick(Movie movie);
     }
 
-    private static List<Movie> movies;
+    private  List<Movie> movies;
     private int rowLayout;
     private Context context;
     private final OnItemClickListener listener;
@@ -79,11 +79,12 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
         return movies.size();
     }
 
-    public static List<Movie> getMovies() {
+    public  List<Movie> getMovies() {
         return movies;
     }
 
-    public static void setMovies(List<Movie> movies) {
-        MoviesAdapter.movies = movies;
+    public void setMovies(List<Movie> movies)
+    {
+        this.movies = movies;
     }
 }

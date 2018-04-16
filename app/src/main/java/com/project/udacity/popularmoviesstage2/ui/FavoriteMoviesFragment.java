@@ -20,6 +20,10 @@ import com.project.udacity.popularmoviesstage2.R;
 import com.project.udacity.popularmoviesstage2.data.MovieContract;
 import com.project.udacity.popularmoviesstage2.data.MovieDbHelper;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -30,9 +34,11 @@ public class FavoriteMoviesFragment extends Fragment
     @BindView(R.id.movies_recycler_view)
     RecyclerView recyclerView;
     GridLayoutManager gridLayoutManager;
-    private static final String RECYCLERVIEW_STATE = "recyclerview-state";
+    private static final String RECYCLERVIEW_STATE = "recyclerview-state-fav";
+    private static final String RECYCLERVIEW_STATE_ADAPTER = "recyclerview-state-adapter-fav";
     Parcelable savedRecyclerLayoutState;
     ArrayList<Movie> movies;
+    MoviesAdapter moviesAdapter;
 
     public FavoriteMoviesFragment() {}
 
@@ -50,6 +56,8 @@ public class FavoriteMoviesFragment extends Fragment
     {
         View view = inflater.inflate(R.layout.fragment_favorite_movies, container, false);
         ButterKnife.bind(this, view);
+        gridLayoutManager = new GridLayoutManager(getContext(),2);
+        recyclerView.setLayoutManager(gridLayoutManager);
         MovieDbHelper movieDbHelper = new MovieDbHelper(getContext());
         sqLiteDatabase = movieDbHelper.getWritableDatabase();
         getAllMovies();
@@ -85,7 +93,7 @@ public class FavoriteMoviesFragment extends Fragment
        new Handler().postDelayed(new Runnable() {
            @Override
            public void run() {
-               recyclerView.setAdapter(new MoviesAdapter(movies, R.layout.movie_list_item, getContext() , new MoviesAdapter.OnItemClickListener()
+               moviesAdapter = new MoviesAdapter(movies, R.layout.movie_list_item, getContext() , new MoviesAdapter.OnItemClickListener()
                {
                    @Override
                    public void onItemClick(Movie movie)
@@ -94,11 +102,12 @@ public class FavoriteMoviesFragment extends Fragment
                        intent.putExtra("movie",movie);
                        getContext().startActivity(intent);
                    }
-               }));
-               gridLayoutManager = new GridLayoutManager(getContext(),2);
+               });
+               moviesAdapter.setMovies(movies);
+               recyclerView.setAdapter(moviesAdapter);
                recyclerView.setLayoutManager(gridLayoutManager);
            }
-       },200);
+       },400);
    }
 
     @Override
@@ -112,6 +121,10 @@ public class FavoriteMoviesFragment extends Fragment
     {
         super.onSaveInstanceState(outState);
         outState.putParcelable(RECYCLERVIEW_STATE, recyclerView.getLayoutManager().onSaveInstanceState());
+        List<Movie> movie = moviesAdapter.getMovies();
+        if (movie != null && !movie.isEmpty()) {
+            outState.putParcelableArrayList(RECYCLERVIEW_STATE_ADAPTER, (ArrayList<? extends Parcelable>) movie);
+        }
     }
 
     @Override
@@ -119,6 +132,11 @@ public class FavoriteMoviesFragment extends Fragment
         super.onViewStateRestored(savedInstanceState);
         if(savedInstanceState != null)
         {
+            if (savedInstanceState.containsKey(RECYCLERVIEW_STATE_ADAPTER)) {
+                List<Movie> movieResultList = savedInstanceState.getParcelableArrayList(RECYCLERVIEW_STATE_ADAPTER);
+                moviesAdapter.setMovies(movieResultList);
+                recyclerView.setAdapter(moviesAdapter);
+            }
             savedRecyclerLayoutState = savedInstanceState.getParcelable(RECYCLERVIEW_STATE);
             new Handler().postDelayed(new Runnable() {
                 @Override
@@ -128,7 +146,7 @@ public class FavoriteMoviesFragment extends Fragment
                         savedRecyclerLayoutState = null;
                     }
                 }
-            }, 400);
+            }, 900);
         }
     }
 

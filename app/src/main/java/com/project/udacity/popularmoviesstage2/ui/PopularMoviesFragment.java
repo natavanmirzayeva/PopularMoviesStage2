@@ -20,6 +20,9 @@ import com.project.udacity.popularmoviesstage2.utils.ApiVariables;
 import com.project.udacity.popularmoviesstage2.R;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -103,7 +106,7 @@ public class PopularMoviesFragment extends Fragment
                         }
                     }
                 }
-            }, 200);
+            }, 900);
         }
     }
 

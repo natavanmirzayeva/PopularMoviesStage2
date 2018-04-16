@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class TabPagerAdapter extends FragmentStatePagerAdapter
+public class TabPagerAdapter extends FragmentPagerAdapter
 {
     private  List<Fragment> mFragmentList = new ArrayList<>();
     private  List<String> mFragmentTitleList = new ArrayList<>();
@@ -83,18 +83,4 @@ public class TabPagerAdapter extends FragmentStatePagerAdapter
         }
         return "" + (position);
     }
-
-   /* @Override
-    public Object instantiateItem(ViewGroup container, int position) {
-        Object obj = super.instantiateItem(container, position);
-        Fragment fragment = mFragmentList.get(position);
-
-        if((obj!=null && fragment!=null) && !(obj.getClass().getSimpleName().equals(fragment.getClass().getSimpleName()))){
-            destroyItem(container, position, obj);
-            return super.instantiateItem(container, position);
-        }else{
-            return obj;
-        }
-    } */
 }
-
