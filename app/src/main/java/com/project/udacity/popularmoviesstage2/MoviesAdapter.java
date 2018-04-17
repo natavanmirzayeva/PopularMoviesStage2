@@ -79,9 +79,11 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
         return movies.size();
     }
 
-    public  List<Movie> getMovies() {
+    public  List<Movie> getMovies()
+    {
         return movies;
     }
+
 
     public void setMovies(List<Movie> movies)
     {

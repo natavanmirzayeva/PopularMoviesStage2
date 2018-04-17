@@ -1,6 +1,9 @@
 package com.project.udacity.popularmoviesstage2.ui;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Parcelable;
@@ -71,10 +74,14 @@ public class PopularMoviesFragment extends Fragment
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelable(RECYCLERVIEW_STATE, recyclerView.getLayoutManager().onSaveInstanceState());
-        List<Movie> movie = moviesAdapter.getMovies();
-        if (movie != null && !movie.isEmpty()) {
-            outState.putParcelableArrayList(RECYCLERVIEW_STATE_ADAPTER, (ArrayList<? extends Parcelable>) movie);
+        if(moviesAdapter!= null)
+        {
+            List<Movie> movie = moviesAdapter.getMovies();
+            if (movie != null && !movie.isEmpty()) {
+                outState.putParcelableArrayList(RECYCLERVIEW_STATE_ADAPTER, (ArrayList<? extends Parcelable>) movie);
+            }
         }
+
     }
 
     @Override
@@ -168,5 +175,6 @@ public class PopularMoviesFragment extends Fragment
         super.onResume();
        // parseJson(getString(R.string.popular));
     }
+
 
 }
