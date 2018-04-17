@@ -11,6 +11,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -65,7 +66,7 @@ public class PopularMoviesFragment extends Fragment
         View view = inflater.inflate(R.layout.fragment_popular_movies, container, false);
         ButterKnife.bind(this,view);
         parseJson(getString(R.string.popular));
-        gridLayoutManager = new GridLayoutManager(getContext(),2);
+        gridLayoutManager = new GridLayoutManager(getContext(),calculateNoOfColumns(getContext()));
         recyclerView.setLayoutManager(gridLayoutManager);
         return  view;
     }
@@ -176,5 +177,14 @@ public class PopularMoviesFragment extends Fragment
        // parseJson(getString(R.string.popular));
     }
 
+    public static int calculateNoOfColumns(Context context) {
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
+        int scalingFactor = 180;
+        int noOfColumns = (int) (dpWidth / scalingFactor);
+        if(noOfColumns < 2)
+            noOfColumns = 2;
+        return noOfColumns;
+    }
 
 }
